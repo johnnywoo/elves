@@ -7,10 +7,12 @@ class Event
      */
     public function __construct(
         public array $arguments,
-    )
-    {
+    ) {
     }
 
+    /**
+     * @param string[] $arguments
+     */
     public static function create(array $arguments): self
     {
         if (in_array($arguments[0], ['родился', 'родилась'])) {
