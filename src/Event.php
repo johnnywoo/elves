@@ -13,6 +13,9 @@ class Event
 
     public static function create(array $arguments): self
     {
-        return new Event($arguments);
+        if (in_array($arguments[0], ['родился', 'родилась'])) {
+            return new BornEvent($arguments);
+        }
+        throw new Exception('Неизвестный вид события: ' . join(' ', $arguments));
     }
 }
