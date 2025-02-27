@@ -10,6 +10,33 @@ class ElvesTest extends TestCase
     public static function elvesDataProvider(): array
     {
         return [
+            "Орк и эльф" => [
+                'dataTxt' => <<<EOF
+                родилась Жронгуэль
+                родился Аэорен
+                EOF,
+                'expectedOutput' => <<<EOF
+                Аэорен
+                EOF,
+            ],
+            "Много народу" => [
+                'dataTxt' => <<<EOF
+                родился Аэбер
+                родился Эонерил
+                родился Ктыгрузд
+                родилась Гилаора
+                родился Улиефаэль
+                родился Вилоурефаэль
+                родился Дрыгбрузж
+                EOF,
+                'expectedOutput' => <<<EOF
+                Аэбер
+                Эонерил
+                Гилаора
+                Улиефаэль
+                Вилоурефаэль
+                EOF,
+            ],
             "Пустой файл" => [
                 'dataTxt' => "",
                 'expectedOutput' => "",
@@ -34,6 +61,13 @@ class ElvesTest extends TestCase
             ],
             "Один орк" => [
                 'dataTxt' => <<<EOF
+                родился Нурглабр
+                EOF,
+                'expectedOutput' => '',
+            ],
+            "Два орка" => [
+                'dataTxt' => <<<EOF
+                родилась Жронгуэль
                 родился Нурглабр
                 EOF,
                 'expectedOutput' => '',
@@ -64,8 +98,8 @@ class ElvesTest extends TestCase
         }
         $output = trim(join("\n", $output));
         self::assertSame(
-            $expectedOutput,
-            $output,
+            "{$expectedOutput}\n",
+            "{$output}\n",
             "Тестовый запуск elves.php выдал неправильный результат.\n"
                 . "Файл с данными:\n{$dataTxt}"
         );
