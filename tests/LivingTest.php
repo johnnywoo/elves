@@ -103,6 +103,6 @@ class LivingTest extends TestAbstract
     #[DataProvider('livingDataProvider')]
     public function testLiving(string $dataTxt, string $expectedOutput): void
     {
-        $this->cliExecAndAssert(__DIR__ . '/../living.php', $dataTxt, $expectedOutput);
+        $this->cliExecAndAssert(__DIR__ . '/../living.php', $dataTxt, [], $expectedOutput);
     }
 }

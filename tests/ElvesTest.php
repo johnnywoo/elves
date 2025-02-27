@@ -91,6 +91,6 @@ class ElvesTest extends TestAbstract
     #[DataProvider('elvesDataProvider')]
     public function testElves(string $dataTxt, string $expectedOutput): void
     {
-        $this->cliExecAndAssert(__DIR__ . '/../elves.php', $dataTxt, $expectedOutput);
+        $this->cliExecAndAssert(__DIR__ . '/../elves.php', $dataTxt, [], $expectedOutput);
     }
 }
