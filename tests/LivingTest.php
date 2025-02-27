@@ -3,10 +3,11 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
-class ElvesTest extends TestAbstract
+class LivingTest extends TestAbstract
 {
-    public static function elvesDataProvider(): array
+    public static function livingDataProvider(): array
     {
         return [
             'Орк и эльф' => [
@@ -18,19 +19,36 @@ class ElvesTest extends TestAbstract
                 Аэорен
                 EOF,
             ],
-            'Много народу' => [
+            'Орк и мёртвый эльф' => [
+                'dataTxt' => <<<EOF
+                родилась Жронгуэль
+                родился Аэорен
+                умер Аэорен
+                EOF,
+                'expectedOutput' => '',
+            ],
+            'Орк убил эльфа' => [
+                'dataTxt' => <<<EOF
+                родилась Жронгуэль
+                родился Аэорен
+                Жронгуэль убила Аэорен
+                EOF,
+                'expectedOutput' => '',
+            ],
+            'Не все эльфы умерли' => [
                 'dataTxt' => <<<EOF
                 родился Аэбер
                 родился Эонерил
                 родился Ктыгрузд
+                умер Эонерил
+                Ктыгрузд убил Аэбер
                 родилась Гилаора
                 родился Улиефаэль
+                Гилаора убила Ктыгрузд
                 родился Вилоурефаэль
                 родился Дрыгбрузж
                 EOF,
                 'expectedOutput' => <<<EOF
-                Аэбер
-                Эонерил
                 Гилаора
                 Улиефаэль
                 Вилоурефаэль
@@ -48,15 +66,12 @@ class ElvesTest extends TestAbstract
                 Аэорен
                 EOF,
             ],
-            'Два эльфа' => [
+            'Эльф родился и умер' => [
                 'dataTxt' => <<<EOF
                 родился Аэорен
-                родилась Иобулия
+                умер Аэорен
                 EOF,
-                'expectedOutput' => <<<EOF
-                Аэорен
-                Иобулия
-                EOF,
+                'expectedOutput' => '',
             ],
             'Один орк' => [
                 'dataTxt' => <<<EOF
@@ -64,33 +79,30 @@ class ElvesTest extends TestAbstract
                 EOF,
                 'expectedOutput' => '',
             ],
-            'Два орка' => [
+            'Орк родился и умер' => [
                 'dataTxt' => <<<EOF
-                родилась Жронгуэль
                 родился Нурглабр
+                умер Нурглабр
                 EOF,
                 'expectedOutput' => '',
             ],
-            'Эльф с проблемным именем' => [
+            'Однофамилец' => [
                 'dataTxt' => <<<EOF
-                родилась Уриэль
+                родился Аэрон
+                родилась Брумгильда
+                Брумгильда убила Аэрон
+                родился Аэрон
                 EOF,
                 'expectedOutput' => <<<EOF
-                Уриэль
+                Аэрон
                 EOF,
-            ],
-            'Орк с проблемным именем' => [
-                'dataTxt' => <<<EOF
-                родился Петя
-                EOF,
-                'expectedOutput' => '',
             ],
         ];
     }
 
-    #[DataProvider('elvesDataProvider')]
-    public function testElves(string $dataTxt, string $expectedOutput): void
+    #[DataProvider('livingDataProvider')]
+    public function testLiving(string $dataTxt, string $expectedOutput): void
     {
-        $this->cliExecAndAssert(__DIR__ . '/../elves.php', $dataTxt, $expectedOutput);
+        $this->cliExecAndAssert(__DIR__ . '/../living.php', $dataTxt, $expectedOutput);
     }
 }
