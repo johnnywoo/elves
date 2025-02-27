@@ -1,0 +1,16 @@
+{
+    "name": "johnnywoo/elves",
+    "description": "Elves and Orcs Interview",
+    "license": "proprietary",
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload": {
+        "psr-0": {
+            "": [
+                "src/",
+                "tests/"
+            ]
+        }
+    }
+}
