@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$dataset = $_SERVER['argv'][1] ?? __DIR__ . '/data/basic.txt';
+$dataset = $_SERVER['argv'][1] ?? __DIR__ . '/data/elves.txt';
 $events = EventLoader::fromFile($dataset);
 
 // Показываем список эльфов.
